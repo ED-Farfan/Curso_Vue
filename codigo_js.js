@@ -13,12 +13,14 @@ const app = new Vue({
     },
     methods:{
         agregarFruta(){
-            this.frutas.push({
-                nombre: this.nuevaFruta,
-                cantidad: this.nuevaCantidad
-            })
-            this.nuevaFruta = ""
-            this.nuevaCantidad = 0
+            if (this.nuevaCantidad !== ''){
+                this.frutas.push({
+                    nombre: this.nuevaFruta,
+                    cantidad: this.nuevaCantidad
+                })
+                this.nuevaFruta = ""
+                this.nuevaCantidad = 0
+            }
         },
         otroMetodo(){
             console.log("Diste Click");

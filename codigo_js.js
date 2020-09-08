@@ -9,5 +9,13 @@ const app = new Vue({
             {nombre:'Uva', cantidad:10}        
         ],
         nuevaFruta:""
+    },
+    methods:{
+        agregarFruta(){
+
+        },
+        otroMetodo(){
+            console.log("Diste Click");
+        }
     }
 })

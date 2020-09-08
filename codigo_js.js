@@ -10,7 +10,7 @@ const app = new Vue({
         ],
         nuevaFruta:"",
         nuevaCantidad: 0,
-        Total:0
+        total:0
     },
     methods:{
         agregarFruta(){
@@ -25,6 +25,15 @@ const app = new Vue({
         },
         otroMetodo(){
             console.log("Diste Click");
+        }
+    },
+    computed: {
+        sumarFrutas(){
+            this.total=0
+            for(fruta of this.frutas){
+                this.total += fruta.cantidad
+            }
+            return this.total;
         }
     }
 })

@@ -27,6 +27,7 @@
         <input type="number" v-model.number="nuevaCantidad" @keyup.enter="agregarFruta" v-if="nuevaFruta !==''">
         <button v-on:click="agregarFruta" v-if="nuevaFruta !==''">Agregar</button>
         <button @click="otroMetodo">Click</button>
+        <h4>TOTAL DE FRUTAS: {{Total}}</h4>
     </div>
     <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

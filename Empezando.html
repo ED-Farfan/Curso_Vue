@@ -19,7 +19,9 @@
             </li> <!-- Generamos una lista desde Vue-->
             
         </ul>
+        <p>Nombre de la fruta:</p>
         <input type="text" v-model="nuevaFruta" @keyup.enter="agregarFruta">
+        <p v-if="nuevaFruta !==''">Indique la cantidad</p>        
         <button v-on:click="agregarFruta">Agregar</button>
         <button @click="otroMetodo">Click</button>
     </div>

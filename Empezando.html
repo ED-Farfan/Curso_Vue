@@ -20,8 +20,9 @@
             
         </ul>
         <p>Nombre de la fruta:</p>
-        <input type="text" v-model="nuevaFruta" @keyup.enter="agregarFruta">
+        <input type="text" v-model="nuevaFruta">
         <p v-if="nuevaFruta !==''">Indique la cantidad</p>        
+        <input type="number" v-model="nuevaCantidad" @keyup.enter="agregarFruta" v-if="nuevaFruta !==''">
         <button v-on:click="agregarFruta" v-if="nuevaFruta !==''">Agregar</button>
         <button @click="otroMetodo">Click</button>
     </div>

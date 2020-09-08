@@ -9,7 +9,8 @@ const app = new Vue({
             {nombre:'Uva', cantidad:10}        
         ],
         nuevaFruta:"",
-        nuevaCantidad: 0
+        nuevaCantidad: 0,
+        Total:0
     },
     methods:{
         agregarFruta(){

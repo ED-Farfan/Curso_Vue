@@ -8,15 +8,17 @@ const app = new Vue({
             {nombre:'Mango', cantidad:0},
             {nombre:'Uva', cantidad:10}        
         ],
-        nuevaFruta:""
+        nuevaFruta:"",
+        nuevaCantidad: 0
     },
     methods:{
         agregarFruta(){
             this.frutas.push({
                 nombre: this.nuevaFruta,
-                cantidad: 0
+                cantidad: this.nuevaCantidad
             })
             this.nuevaFruta = ""
+            this.nuevaCantidad = 0
         },
         otroMetodo(){
             console.log("Diste Click");

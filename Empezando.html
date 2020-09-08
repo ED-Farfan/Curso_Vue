@@ -7,7 +7,7 @@
 </head>
 <body>
     <!-- Esto es sin utilizar Vue-->
-    <h1>Hola Mundo</h1>
+    <h1>Tienda Frutas</h1>
     <!-- Esto se utiliza Vue-->
     <div id="app">
         <h1>{{titulo}}</h1> <!-- Esto es una interpolacion-->        
@@ -15,6 +15,8 @@
             <li v-for="fruta of frutas">
                 {{fruta.nombre}} :  
                 <input type="number" v-model.number="fruta.cantidad">                
+                <button @click="fruta.cantidad ++">+</button>
+                <button @click="fruta.cantidad --">-</button>
                 <span v-if="fruta.cantidad === 0"> -Sin Stock-</span>                
             </li> <!-- Generamos una lista desde Vue-->
             

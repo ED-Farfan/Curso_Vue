@@ -15,7 +15,7 @@
             <li v-for="fruta of frutas">
                 {{fruta.nombre}} :  
                 <span v-if="fruta.cantidad === 0"> Sin Stock</span>
-                <span v-else>{{fruta.cantidad}}</span>
+                <span>{{fruta.cantidad}}</span>
             </li> <!-- Generamos una lista desde Vue-->
             
         </ul>

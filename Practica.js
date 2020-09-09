@@ -8,7 +8,10 @@ const app = new Vue ({
     methods:{
         agregarTarea(){
             if(this.nuevaTarea !== ''){
-                this.tareas.push(this.nuevaTarea)
+                this.tareas.push({
+                    nombre: this.nuevaTarea,
+                    estado: false
+                })
                 this.nuevaTarea=""
             }
         }

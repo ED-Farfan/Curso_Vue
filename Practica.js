@@ -6,6 +6,11 @@ const app = new Vue ({
         nuevaTarea: ""
     },
     methods:{
-
+        agregarTarea(){
+            if(this.nuevaTarea !== ''){
+                this.tareas.push(this.nuevaTarea)
+                this.nuevaTarea=""
+            }
+        }
     }
 })

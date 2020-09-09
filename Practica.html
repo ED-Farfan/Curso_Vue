@@ -13,7 +13,7 @@
         <button class="btn btn-primary" @click="agregarTarea"> Agregar</button>
         
         <div class="mt-3" v-for="(item,index) of tareas">
-            <div class="alert alert alert-primary" role="alert">
+            <div role="alert" :class="['alert',item.estado ? 'alert-success' : 'alert-danger']">
                 <div class="d-flex justify-content-between">
                     <div>
                         <span>{{index}}.-</span>
@@ -21,7 +21,7 @@
                     </div>
                     <div>
                         <button class="btn btn-success" @click="editarTarea(index)">OK</button>
-                        
+
                         <button class="btn btn-danger">X</button>
                     </div>
                 </div>

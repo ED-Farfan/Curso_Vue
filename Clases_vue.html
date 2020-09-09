@@ -12,8 +12,9 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet molestiae itaque cupiditate veniam adipisci accusamus consequatur necessitatibus ducimus soluta mollitia unde, in eaque, recusandae accusantium dolor deleniti eos sequi? Laudantium.</p>
             <input type="text" class="form-control my-2" v-model='fondo'>
         </div>
-        <div class=" text-white p-3" :class="{'bg-info':color , 'bg-darck':!color}">
+        <div class=" text-white p-3" :class="{'bg-info':color , 'bg-dark':!color}">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod debitis possimus dolorum id cupiditate eligendi illo impedit delectus deleniti necessitatibus, illum tempora saepe obcaecati quas! Sapiente autem necessitatibus illo assumenda?</p>
+            <button class="btn btn-primary" @click="color=!color">cambiar</button>
         </div>
     </div>
     <!-- development version, includes helpful console warnings -->

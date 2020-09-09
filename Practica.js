@@ -14,6 +14,9 @@ const app = new Vue ({
                 })
                 this.nuevaTarea=""
             }
+        },
+        editarTarea: function(index){
+            this.tareas[index].estado = true
         }
     }
 })

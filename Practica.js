@@ -21,5 +21,14 @@ const app = new Vue ({
         eliminarTarea: function(index){
             this.tareas.splice(index,1)
         }
+    },
+    created: function(){
+        let datosL = JSON.parse(localStorage.getItem('gym-vue'))
+        if(datosL == null){
+            this.tareas=[]
+        }
+        else{
+            this.tareas = datosL
+        }
     }
 })

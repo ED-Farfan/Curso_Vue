@@ -16,13 +16,13 @@
             <div role="alert" :class="['alert',item.estado ? 'alert-success' : 'alert-danger']">
                 <div class="d-flex justify-content-between">
                     <div>
-                        <span>{{index}}.-</span>
+                        <span>{{index+1}}.-</span>
                         <span>{{item.nombre}}</span>
                     </div>
                     <div>
                         <button class="btn btn-success" @click="editarTarea(index)">OK</button>
 
-                        <button class="btn btn-danger">X</button>
+                        <button class="btn btn-danger" @click="eliminarTarea(index)">X</button>
                     </div>
                 </div>
             </div>

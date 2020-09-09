@@ -17,6 +17,9 @@ const app = new Vue ({
         },
         editarTarea: function(index){
             this.tareas[index].estado = true
+        },
+        eliminarTarea: function(index){
+            this.tareas.splice(index,1)
         }
     }
 })

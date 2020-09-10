@@ -18,6 +18,13 @@ const app = new Vue({
     computed:{
         invertido(){
             return this.mensaje.split('').reverse().join('')
+        },
+        color(){
+            return{
+                'bg-success' : this.porcentaje < 33,
+                'bg-warning' : this.porcentaje >= 33 && this.porcentaje <= 66,
+                'bg-danger' : this.porcentaje > 66
+            }
         }
     }
 })

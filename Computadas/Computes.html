@@ -21,7 +21,7 @@
         <h3>{{contador}}</h3>        
         <div class="progress">
             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
-        aria-valuemin="0" aria-valuemax="100" :style="{'width': porcentaje+'%'}">{{(100*contador)/10}}%</div>
+        aria-valuemin="0" aria-valuemax="100" :style="{'width': porcentaje+'%'}" :class="color">{{(100*contador)/10}}%</div>
         </div>
     </div>
     <!-- development version, includes helpful console warnings -->

@@ -12,6 +12,3 @@ Vue.component('contador',{
         }
     }
 })
-const con = new Vue({
-    el:'#app'
-})

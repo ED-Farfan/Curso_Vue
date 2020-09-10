@@ -1,14 +1,17 @@
-Vue.component('Saludo',{
+Vue.component('Padre',{
     template: //html
     `
     <div>
-        <h4>{{saludo}}</h4>
+        <h4>{{papa}}</h4>
         Hola saludo
     </div>
     `,
     data(){
         return{
-            saludo: "Hola desde Vue"
+            papa: "Hola desde Vue"
         }
     }
+})
+new Vue({
+    el:'#app'
 })

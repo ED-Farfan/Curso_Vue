@@ -1,5 +1,11 @@
 Vue.component('Saludo',{
-    template: '<h4>{{saludo}}</h4>',
+    template: //html
+    `
+    <div>
+        <h4>{{saludo}}</h4>
+        Hola saludo
+    </div>
+    `,
     data(){
         return{
             saludo: "Hola desde Vue"

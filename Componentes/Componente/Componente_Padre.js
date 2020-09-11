@@ -1,17 +1,14 @@
 Vue.component('Padre',{
     template: //html
     `
-    <div>
+    <div class="p-5 bg-dark text-white">
         <h4>{{papa}}</h4>
-        Hola saludo
+        <hijo></hijo>
     </div>
     `,
     data(){
         return{
-            papa: "Hola desde Vue"
+            papa: "Yo soy el padre"
         }
     }
-})
-new Vue({
-    el:'#app'
 })

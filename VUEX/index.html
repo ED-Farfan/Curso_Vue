@@ -17,8 +17,19 @@
     <script src="componente_padre.js"></script>
     <script src="componente_hijo.js"></script>    
     <script>
+        const store = new Vuex.Store({
+            state:{
+                numero:10
+            },
+            mutations:{
+                aumentar(){
+                    this.state.numero ++
+                }
+            }
+        })
         new Vue({
-            el:"#app"
+            el:"#app",
+            store
         })
     </script>
     

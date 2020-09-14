@@ -19,7 +19,8 @@
     <script>
         const store = new Vuex.Store({
             state:{
-                numero:10
+                numero:10,
+                curso:[]
             },
             mutations:{
                 aumentar(){
@@ -30,6 +31,16 @@
                 },
                 disminuir_numero(state,n){
                     state.numero -= n
+                },
+                llenar_curso(state,CursosenAccion){
+                    state.curso = CursosenAccion
+                }
+            },
+            actions:{
+                obtenercursos: async function ({commit}) {
+                    const data = await fetch('cursos.json')
+                    const cursos = await data.json()                    
+                    commit('llenar_curso',cursos)
                 }
             }
         })

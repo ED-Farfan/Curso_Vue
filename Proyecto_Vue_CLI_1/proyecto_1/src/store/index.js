@@ -7,8 +7,8 @@ export default new Vuex.Store({
   state: {
     frutas:[
       {nombre: 'Manzana', cantidad: 0},
-      {nombre: 'Pera', cantidad: 1},
-      {nombre: 'Fresa', cantidad: 2}
+      {nombre: 'Pera', cantidad: 0},
+      {nombre: 'Fresa', cantidad: 0}
     ]
   },
   mutations: {

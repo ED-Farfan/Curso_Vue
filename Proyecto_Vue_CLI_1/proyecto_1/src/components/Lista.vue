@@ -1,23 +1,22 @@
 <template>
   <div>
     <ul class="list-group">
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Cras justo odio
-        <span class="badge badge-primary badge-pill">14</span>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Dapibus ac facilisis in
-        <span class="badge badge-primary badge-pill">2</span>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Morbi leo risus
-        <span class="badge badge-primary badge-pill">1</span>
-      </li>
+      <li v-for="item in frutas" :key="item.id"
+      class="list-group-item d-flex justify-content-between align-items-center">
+        {{item.nombre}}
+        <span class="badge badge-primary badge-pill">{{item.cantidad}}</span>
+      </li>      
     </ul>
   </div>
 </template>
+
 <script>
+import { mapState } from 'vuex'
 export default {
   name: "Lista",
+  computed:{
+      ...mapState(['frutas'])
+  }
 };
+
 </script>

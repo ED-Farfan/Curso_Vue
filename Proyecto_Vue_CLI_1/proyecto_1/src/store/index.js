@@ -12,6 +12,10 @@ export default new Vuex.Store({
     ]
   },
   mutations: {
+    aumentar(state,index){
+      console.log("clickckckcck");
+      state.frutas[index].cantidad ++
+    }
   },
   actions: {
   },

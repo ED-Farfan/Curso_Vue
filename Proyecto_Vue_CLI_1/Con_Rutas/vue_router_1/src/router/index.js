@@ -19,6 +19,12 @@ const routes = [
     path: '/Servicios',
     name: 'Servicios',    
     component: () => import(/* webpackChunkName: "Servicios" */ '../views/Servicios.vue')
+  },
+  /*Ruta Dinamica */
+  {
+    path: '/Galeria/:id',
+    name: 'Galeria',
+    component: () => import(/* webpackChunkName: "Galeria" */ '../views/Galeria.vue')
   }
 ]
 

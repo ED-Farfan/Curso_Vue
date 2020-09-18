@@ -17,7 +17,7 @@
         <h4> Botones dinamicos </h4>
         <router-link :to="{name:'Galeria', params:{id:'Foto-'+item}}" 
         v-for="(item,index) of numeroFoto" :key="index">
-            <button>Foto-{{item}}</button>
+            <button v-if="($route.params.id != 'Foto-'+item)">Foto-{{item}}</button>
         </router-link>
         
     </div>

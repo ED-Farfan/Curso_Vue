@@ -23,6 +23,11 @@
         <hr>
         <br>
         <button @click='home'>Home</button>
+        <br><br>
+        <hr>
+        <h3>Historial</h3>
+        <button @click="anterior">Anterior</button>
+        <button @click="siguiente">Siguiente</button>
     </div>
 </template>
 <script>
@@ -40,6 +45,12 @@ export default {
     methods: {
         home(){
             this.$router.push('/')
+        },
+        anterior(){
+            this.$router.go(-1)
+        },
+        siguiente(){
+            this.$router.go(1)
         }
     },
 }

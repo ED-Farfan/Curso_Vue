@@ -19,7 +19,10 @@
         v-for="(item,index) of numeroFoto" :key="index">
             <button v-if="($route.params.id != 'Foto-'+item)">Foto-{{item}}</button>
         </router-link>
-        
+        <br><br>
+        <hr>
+        <br>
+        <button @click='home'>Home</button>
     </div>
 </template>
 <script>
@@ -33,6 +36,11 @@ export default {
         return{
             numeroFoto:[1,2,3,4,5,6,7,8,9,10]
         }
-    }
+    },
+    methods: {
+        home(){
+            this.$router.push('/')
+        }
+    },
 }
 </script>

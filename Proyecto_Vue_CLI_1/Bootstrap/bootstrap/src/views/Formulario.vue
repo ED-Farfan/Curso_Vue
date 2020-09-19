@@ -17,6 +17,13 @@
                 <b-form-select v-model="selected" :options="animales" :state="comprobar2"></b-form-select>
                 <p>Usted selecciono: {{selected}} <span v-if="(selected === null)">NADA</span> </p>
             </b-col>
+            <b-col md="4">
+                <h2>Seleccion Radio</h2>
+                <h3>Selecione un animal</h3>
+                <b-form-radio-group v-model="selec" :options="Radioanimales" :state="comprobar3"></b-form-radio-group>
+                <small v-if="(selec===null)">Seleccione una casilla</small>
+                <p>Usted selecciono: {{selec}}</p>
+            </b-col>
         </b-row>
     </form>
 </div>    
@@ -33,6 +40,12 @@ export default {
                 {value: "Perro", text:"Guau"},
                 {value: "Gato", text:"Miau"},
                 {value: "Pato", text:"Cuack"}
+            ],
+            selec: null,
+            Radioanimales:[                
+                {value: "Perro", text:"Guau"},
+                {value: "Gato", text:"Miau"},
+                {value: "Pato", text:"Cuack"}
             ]
         }
     },
@@ -42,6 +55,9 @@ export default {
         },
         comprobar2(){
             return this.selected !== null ? true:false
+        },
+        comprobar3(){
+            return this.selec !== null ? true:false
         }
     }
 }

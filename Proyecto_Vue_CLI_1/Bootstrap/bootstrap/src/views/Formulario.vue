@@ -25,6 +25,21 @@
                 <p>Usted selecciono: {{selec}}</p>
             </b-col>
         </b-row>
+        <b-row>
+            <b-col md="8">
+                <h2>Seleccion Multiple</h2>
+            <br>
+            <b-form-checkbox-group v-model="sel" :options="Radioanimales" :state="comprobar4"></b-form-checkbox-group>
+            <small v-if="(sel===null)">Seleccione una o varias casillas</small>
+            <p v-if="(sel!==null && sel.length !== 0)">Usted Selecciono:</p>
+            <ul>
+                <li v-for="(s,index) in sel" :key="index.id">
+                    {{s}}
+                </li>
+                
+            </ul>
+            </b-col>            
+        </b-row>
     </form>
 </div>    
 </template>
@@ -46,7 +61,8 @@ export default {
                 {value: "Perro", text:"Guau"},
                 {value: "Gato", text:"Miau"},
                 {value: "Pato", text:"Cuack"}
-            ]
+            ],
+            sel:null
         }
     },
     computed:{
@@ -58,6 +74,9 @@ export default {
         },
         comprobar3(){
             return this.selec !== null ? true:false
+        },
+        comprobar4(){
+            return (this.sel === null || this.sel.length === 0) ? false:true
         }
     }
 }

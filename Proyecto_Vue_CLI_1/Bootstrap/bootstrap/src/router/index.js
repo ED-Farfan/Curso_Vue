@@ -27,6 +27,11 @@ const routes = [
     path: '/Cards',
     name: 'Cards',    
     component: () => import(/* webpackChunkName: "Columnas" */ '../views/Cards.vue')
+  },
+  {
+    path: '/Formulario',
+    name: 'Formulario',    
+    component: () => import(/* webpackChunkName: "Form" */ '../views/Formulario.vue')
   }
 ]
 

@@ -11,6 +11,7 @@
             <b-nav-item :to="{name:'About'}">About</b-nav-item>
             <b-nav-item :to="{name:'Columnas'}">Columas</b-nav-item>
             <b-nav-item :to="{name:'Cards'}">Cards</b-nav-item>
+            <b-nav-item :to="{name:'Formulario'}">Form</b-nav-item>
           </b-navbar-nav>
         </b-collapse>
       </b-container>

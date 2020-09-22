@@ -3,12 +3,12 @@
  
   <v-layout :wrap="true">
     <v-flex xs12>      
-      <v-card>
-        <v-date-picker v-model="picker"></v-date-picker>
+      <v-card dark class="mx-auto">
+        <v-date-picker v-model="fecha" full-width dark locale="es-mx" :min=minimo :max=hoy></v-date-picker>
       </v-card>
-      <v-card color="error" dark>
+      <v-card color="error" dark >
         <v-card-text class="display-1 text-center" >
-          $65.00
+          $65.00 --- {{fecha}}     {{hoy}}
         </v-card-text>
       </v-card>
     </v-flex>
@@ -23,6 +23,14 @@
 
 export default {
   name: 'Home',
+  data(){
+    return{
+      fecha:"",
+      minimo:"1990",
+      hoy: new Date().toISOString().substr(0, 10)
+    }
+
+  },
   components: {
    
   }

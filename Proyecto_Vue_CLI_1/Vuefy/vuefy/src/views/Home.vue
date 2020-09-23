@@ -20,7 +20,7 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios'
-
+import {mapMutations} from 'vuex'
 export default {
   name: 'Home',
   data(){
@@ -33,10 +33,12 @@ export default {
 
   },
   methods: {
+    ...mapMutations(['mostrarloading','ocultarloding']),
     async getDolar(dia){      
       console.log("DIA");
       let fecha =`${dia.slice(8,10)}-${dia.slice(5,7)}-${dia.slice(0,4)}`            
       try {
+        this.mostrarloading({titulo:'Accediendo a informacion',color:"secondary"})
         let datos = await axios.get(`https://mindicador.cl/api/dolar/${fecha}`)              
         if (datos.data.serie.length > 0) {
           this.precio = await datos.data.serie[0].valor
@@ -47,7 +49,9 @@ export default {
       } catch (error) {
         console.log(error);
       }
-      
+      finally{
+        this.ocultarloding()
+      }
       
     }
   },

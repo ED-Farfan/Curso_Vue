@@ -35,9 +35,8 @@ export default {
   methods: {
     async getDolar(dia){      
       console.log("DIA");
-      console.log(dia)
-      let datos = await axios.get(`https://mindicador.cl/api/dolar/${dia}`)
-      
+      let fecha =`${dia.slice(8,10)}-${dia.slice(5,7)}-${dia.slice(0,4)}`            
+      let datos = await axios.get(`https://mindicador.cl/api/dolar/${fecha}`)      
       this.precio = await datos.data.serie[0].valor
     }
   },

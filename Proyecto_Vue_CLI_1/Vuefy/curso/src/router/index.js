@@ -22,6 +22,11 @@ const routes = [
     path: '/Grid',
     name: 'Grid',    
     component: () => import(/* webpackChunkName: "Grid" */ '../views/Grid.vue')
+  },
+  {
+    path: '/Botones',
+    name: 'Botones',    
+    component: () => import(/* webpackChunkName: "Botones" */ '../views/Botones.vue')
   }
 
 ]

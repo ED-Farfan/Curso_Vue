@@ -36,8 +36,19 @@ export default {
     async getDolar(dia){      
       console.log("DIA");
       let fecha =`${dia.slice(8,10)}-${dia.slice(5,7)}-${dia.slice(0,4)}`            
-      let datos = await axios.get(`https://mindicador.cl/api/dolar/${fecha}`)      
-      this.precio = await datos.data.serie[0].valor
+      try {
+        let datos = await axios.get(`https://mindicador.cl/api/dolar/${fecha}`)              
+        if (datos.data.serie.length > 0) {
+          this.precio = await datos.data.serie[0].valor
+        }
+        else{
+          this.precio = "No existe resultado" 
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      
+      
     }
   },
   created() {

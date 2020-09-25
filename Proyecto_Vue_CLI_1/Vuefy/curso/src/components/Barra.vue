@@ -22,6 +22,15 @@
             <p class="white--text mt-3 headline">Juan Perez</p>
         </v-flex>
       </v-layout>
+      <v-layout column>
+        <v-flex mx-3>
+          <v-btn block color="secondary" dark :to="{name:'Home'}">Home</v-btn>
+          <v-btn block color="secondary" dark :to="{name:'Grid'}">Grids</v-btn>
+          <v-btn block color="secondary" dark :to="{name:'Botones'}">Botones</v-btn>
+          <v-btn block color="secondary" dark :to="{name:'Cards'}">Cards</v-btn>
+          <v-btn block color="secondary" dark :to="{name:'tareas-crud'}">Tareas</v-btn>
+        </v-flex>
+      </v-layout>
     </v-navigation-drawer>
   </div>  
 </template>

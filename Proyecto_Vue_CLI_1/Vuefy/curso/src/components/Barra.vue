@@ -23,7 +23,7 @@
         </v-flex>
       </v-layout>
     </v-navigation-drawer>
-  </div>
+  </div>  
 </template>
 <script>
 export default {

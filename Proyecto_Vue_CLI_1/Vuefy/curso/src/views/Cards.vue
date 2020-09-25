@@ -6,7 +6,9 @@
             <v-card-title primary-title  class="justify-center">
                 Titulo
             </v-card-title>
-            <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"></v-img>
+            <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg">
+            <span class="headline">Lorem, ipsum dolor.</span>
+            </v-img>
             
           <v-card-text>
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit velit nisi culpa quo dolorem repudiandae, pariatur soluta autem, commodi natus tenetur rem incidunt recusandae dicta illum vero aliquam, voluptatibus minima!</p>

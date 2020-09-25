@@ -1,9 +1,9 @@
 <template>
-  <v-container>
+  <v-container grid-list-md>
     <v-layout row wrap>
       <v-flex xs12 sm6>
-        <v-card>
-            <v-card-title primary-title>
+        <v-card dark > 
+            <v-card-title primary-title  class="justify-center">
                 Titulo
             </v-card-title>
             <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"></v-img>

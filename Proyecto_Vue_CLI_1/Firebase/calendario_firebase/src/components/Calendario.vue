@@ -164,16 +164,21 @@
                           xs12
                           justify-center
                           v-if="completo"
-                          
                         >
-                        <div class="text-center">
-                          <v-btn class="center" color="success" dark text rounded @click="setEvent()">
-                            Agregar Evento<v-icon right
-                              >mdi-calendar-check</v-icon
+                          <div class="text-center">
+                            <v-btn
+                              class="center"
+                              color="success"
+                              dark
+                              text
+                              rounded
+                              @click="setEvent()"
                             >
-                          </v-btn>                          
-                        </div>
-                          
+                              Agregar Evento<v-icon right
+                                >mdi-calendar-check</v-icon
+                              >
+                            </v-btn>
+                          </div>
                         </v-flex>
                         <v-flex class="mt-1" xs12 v-else>
                           <span class="red--text" v-if="!verificarNombre"
@@ -183,9 +188,16 @@
                             >* Falta fecha de Inicio</span
                           ><br v-if="!verificarFechaI" />
                           <span class="red--text" v-if="!verificarFechaF"
-                            >* Falta fecha de fin </span
-                          >
-                          <span class="red--text" v-if="verificarFechaI && verificarFechaF"><span v-if="!verificarFechaMayor">* Fecha de inicio no puede ser mayor a fecha de fin</span><br v-if="!verificarFechaMayor"></span>
+                            >* Falta fecha de fin
+                          </span>
+                          <span
+                            class="red--text"
+                            v-if="verificarFechaI && verificarFechaF"
+                            ><span v-if="!verificarFechaMayor"
+                              >* Fecha de inicio no puede ser mayor a fecha de
+                              fin</span
+                            ><br v-if="!verificarFechaMayor"
+                          /></span>
                           <br v-if="!verificarFechaF" />
                           <span class="red--text" v-if="!verificarColor"
                             >* Falta seleccionar color</span
@@ -200,6 +212,49 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
+            
+            <v-overlay :absolute="true" :value="overlay" color="black">
+              <v-card>
+                <v-card-title primary-title class="grey darken-3">
+                  <div class="text-center">
+                    <span overline> Cargando Calendario</span>
+                  </div>
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <div class="text-center mt-2">
+                      <v-progress-circular indeterminate color="cyan">
+                        <v-icon color="green accent-2">mdi-reload</v-icon>
+                      </v-progress-circular>
+                    </div>
+                  </v-container>
+                </v-card-text>
+              </v-card>
+            </v-overlay>
+            <v-overlay :value="overlay2" color="lime">
+              <v-card>
+                <v-card-title primary-title class="black">
+                  <div class="text-center">
+                    <br>
+                    <span overline >  <v-icon color="white">mdi-check</v-icon>
+                     Se agrego corrrectamente</span>
+                  </div>
+                </v-card-title>
+                <v-card-text>
+                  <div class="text-center mt-5">
+                    <v-btn
+        class="black--text"
+        color="light-green accent-3"
+        @click="overlay2 = false"
+        text
+        rounded
+      >
+        Continuar
+      </v-btn>
+                  </div>
+                </v-card-text>                
+              </v-card>
+            </v-overlay>
             <v-menu
               v-model="selectedOpen"
               :close-on-content-click="false"
@@ -282,6 +337,8 @@ export default {
     F_fin: null,
     color_s: "#ffffff",
     nameRules: [(v) => !!v || "Es requerido"],
+    overlay: false,
+    overlay2:false
   }),
   mounted() {
     this.$refs.calendar.checkChange();
@@ -290,24 +347,26 @@ export default {
   methods: {
     async setEvent() {
       try {
-        if(this.verificarNombre &&
-        this.verificarFechaI &&
-        this.verificarFechaF &&
-        this.verificarFechaMayor&&
-        this.verificarColor){
+        if (
+          this.verificarNombre &&
+          this.verificarFechaI &&
+          this.verificarFechaF &&
+          this.verificarFechaMayor &&
+          this.verificarColor
+        ) {
           console.log("Entro");
           await db.collection("eventos").add({
-            name:this.nombre,
-            details:this.detalle,
-            start:this.F_inicio,
-            end:this.F_fin,
-            color:this.color_s
-          })
-          this.getEvent()          
+            name: this.nombre,
+            details: this.detalle,
+            start: this.F_inicio,
+            end: this.F_fin,
+            color: this.color_s,
+          });
+          this.cancelar()
+          this.getEvent();
+          this.overlay2 = true
           
         }
-        
-        
       } catch (error) {
         console.log("EROROROROROROR");
         console.log(error);
@@ -315,19 +374,31 @@ export default {
     },
     async getEvent() {
       try {
+        this.overlay=true
         const snapshot = await db.collection("eventos").get();
         const events = [];
         snapshot.forEach((doc) => {
-          let eventData = doc.data()
-          eventData.id = doc.id
-          events.push(eventData)
-          console.log(eventData);
-        });
-        this.events = events
+          let eventData = doc.data();
+          eventData.id = doc.id;
+          events.push(eventData);          
+        });        
+        this.events = events;
+        this.overlay=false
+        
       } catch (error) {
         console.log("EROROROROROROR");
         console.log(error);
       }
+    },
+    cancelar(){
+      this.nombre= null,
+    this.detalle= null,
+    this.color= "#1976D2",
+    this.dialog= false,
+    this.F_inicio= null,
+    this.F_fin= null,
+    this.color_s= "#ffffff",
+    this.dialog = false
     },
     viewDay({ date }) {
       this.focus = date;
@@ -438,7 +509,7 @@ export default {
         this.verificarNombre &&
         this.verificarFechaI &&
         this.verificarFechaF &&
-        this.verificarFechaMayor&&
+        this.verificarFechaMayor &&
         this.verificarColor
       ) {
         return true;

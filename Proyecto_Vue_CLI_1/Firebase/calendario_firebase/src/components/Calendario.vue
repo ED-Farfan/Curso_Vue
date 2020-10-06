@@ -87,28 +87,109 @@
                   <div class="text--primary">
                     <v-form>
                       <v-layout row wrap justify-center>
-                        <v-flex class=" mt-1" xs12 lign="center"      justify="center">
-                          <v-text-field type="text" label="Nombre" append-icon="mdi-bookmark"  v-model="nombre" required color="red" :rules="nameRules"></v-text-field>                          
-                           </v-flex>
+                        <v-flex
+                          class="mt-1"
+                          xs12
+                          lign="center"
+                          justify="center"
+                        >
+                          <v-text-field
+                            type="text"
+                            label="Nombre"
+                            append-icon="mdi-bookmark"
+                            v-model="nombre"
+                            required
+                            color="blue darken-2"
+                            :rules="nameRules"
+                          ></v-text-field>
+                        </v-flex>
                         <v-flex class="mt-1" xs12>
-                          <v-text-field type="text" label="Detalles" append-icon="mdi-pencil"  v-model="detalle" outlined color="danger" :rules="nameRules" clearable></v-text-field>
+                          <v-text-field
+                            type="text"
+                            label="Detalles"
+                            append-icon="mdi-pencil"
+                            v-model="detalle"
+                            outlined
+                            color="blue darken-2"
+                            clearable
+                          ></v-text-field>
                         </v-flex>
                         <v-flex class="mt-1" xs6>
-                          <v-text-field type="date" label="Fecha de Inicio"  v-model="F_inicio" outlined color="red" clearable :rules="nameRules"></v-text-field>
+                          <v-text-field
+                            type="date"
+                            label="Fecha de Inicio"
+                            v-model="F_inicio"
+                            outlined
+                            color="blue darken-2"
+                            clearable
+                            :rules="nameRules"
+                          ></v-text-field>
                         </v-flex>
                         <v-flex class="mt-1" xs6>
-                          <v-text-field type="date" label="Fecha de Fin"   v-model="F_fin" outlined color="danger" clearable :rules="nameRules"></v-text-field>
+                          <v-text-field
+                            type="date"
+                            label="Fecha de Fin"
+                            v-model="F_fin"
+                            outlined
+                            color="blue darken-2"
+                            clearable
+                            :rules="nameRules"
+                          ></v-text-field>
                         </v-flex>
-                        <v-flex class="mt-1" xs12>
-                          <v-text-field type="color" label="Color"   v-model="color_s" outlined color="danger" clearable :rules="nameRules"></v-text-field>
+                        <v-flex class="mt-1" xs6>
+                          <v-text-field
+                            type="color"
+                            label="Color"
+                            v-model="color_s"
+                            outlined
+                            :rules="nameRules"
+                            color="blue darken-2"
+                          ></v-text-field>
                         </v-flex>
-                        <v-flex class="mt-1" xs12 justify-center>
-                          <v-btn class="center" color="success" dark text>
-                                Agregar Evento<v-icon  right>mdi-calendar-check</v-icon>
-                               </v-btn>
-                          {{verificarNombre}}
-                          {{verificarFechaI}}
-                         
+                        <v-flex class="mt-1" xs2>
+                          <span> Color: </span>
+                        </v-flex>
+                        <v-flex class="mt-1" xs4>
+                          <v-color-picker
+                            disabled
+                            dot-size="25"
+                            hide-canvas
+                            swatches-max-height="200"
+                            v-model="color_s"
+                            mode="hexa"
+                          ></v-color-picker>
+                        </v-flex>
+                        <v-flex
+                          class="mt-1 align-self-center"
+                          xs12
+                          justify-center
+                          v-if="completo"
+                          
+                        >
+                        <div class="text-center">
+                          <v-btn class="center" color="success" dark text rounded @click="setEvent()">
+                            Agregar Evento<v-icon right
+                              >mdi-calendar-check</v-icon
+                            >
+                          </v-btn>                          
+                        </div>
+                          
+                        </v-flex>
+                        <v-flex class="mt-1" xs12 v-else>
+                          <span class="red--text" v-if="!verificarNombre"
+                            >* Falta el nombre</span
+                          ><br v-if="!verificarNombre" />
+                          <span class="red--text" v-if="!verificarFechaI"
+                            >* Falta fecha de Inicio</span
+                          ><br v-if="!verificarFechaI" />
+                          <span class="red--text" v-if="!verificarFechaF"
+                            >* Falta fecha de fin </span
+                          >
+                          <span class="red--text" v-if="verificarFechaI && verificarFechaF"><span v-if="!verificarFechaMayor">* Fecha de inicio no puede ser mayor a fecha de fin</span><br v-if="!verificarFechaMayor"></span>
+                          <br v-if="!verificarFechaF" />
+                          <span class="red--text" v-if="!verificarColor"
+                            >* Falta seleccionar color</span
+                          ><br />
                         </v-flex>
                       </v-layout>
                     </v-form>
@@ -199,23 +280,50 @@ export default {
     dialog: false,
     F_inicio: null,
     F_fin: null,
-    color_s:"#ffffff",
-    nameRules: [
-        v => !!v || 'Es requerido',        
-      ],
+    color_s: "#ffffff",
+    nameRules: [(v) => !!v || "Es requerido"],
   }),
   mounted() {
     this.$refs.calendar.checkChange();
     this.getEvent();
   },
   methods: {
+    async setEvent() {
+      try {
+        if(this.verificarNombre &&
+        this.verificarFechaI &&
+        this.verificarFechaF &&
+        this.verificarFechaMayor&&
+        this.verificarColor){
+          console.log("Entro");
+          await db.collection("eventos").add({
+            name:this.nombre,
+            details:this.detalle,
+            start:this.F_inicio,
+            end:this.F_fin,
+            color:this.color_s
+          })
+          this.getEvent()          
+          
+        }
+        
+        
+      } catch (error) {
+        console.log("EROROROROROROR");
+        console.log(error);
+      }
+    },
     async getEvent() {
       try {
         const snapshot = await db.collection("eventos").get();
         const events = [];
         snapshot.forEach((doc) => {
-          console.log(doc.Nombre);
+          let eventData = doc.data()
+          eventData.id = doc.id
+          events.push(eventData)
+          console.log(eventData);
         });
+        this.events = events
       } catch (error) {
         console.log("EROROROROROROR");
         console.log(error);
@@ -286,23 +394,58 @@ export default {
     },
   },
   computed: {
-    verificarNombre(){
-      if(this.nombre === null){
-        return false
-      }
-      else{
-        return true
+    verificarNombre() {
+      if (this.nombre === null) {
+        return false;
+      } else {
+        return true;
       }
     },
-    verificarFechaI(){
-      if(this.F_inicio === null){
-        return this.F_inicio
+    verificarFechaI() {
+      if (this.F_inicio === null) {
+        return false;
+      } else {
+        return true;
       }
-      else{
-        return this.F_inicio
+    },
+    verificarFechaF() {
+      if (this.F_fin === null) {
+        return false;
+      } else {
+        return true;
       }
-    }
-
+    },
+    verificarColor() {
+      if (this.color_s == "#FFFFFF") {
+        return false;
+      } else {
+        return true;
+      }
+    },
+    verificarFechaMayor() {
+      if (this.verificarFechaI && this.verificarFechaF) {
+        if (this.F_inicio < this.F_fin) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    },
+    completo() {
+      if (
+        this.verificarNombre &&
+        this.verificarFechaI &&
+        this.verificarFechaF &&
+        this.verificarFechaMayor&&
+        this.verificarColor
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
 };
 </script>

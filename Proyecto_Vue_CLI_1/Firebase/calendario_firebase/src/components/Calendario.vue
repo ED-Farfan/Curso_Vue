@@ -81,7 +81,11 @@
             >
               <v-card class="" elevation="">
                 <v-card-title primary-title class="cyan justify-center">
-                  <span class="headline text-center">Nuevo Evento</span>
+                  <span class="headline text-center white--text" dark>Nuevo Evento</span>
+                   <v-btn @click="cancelar()" text rounded color="red" dark>
+                          <v-icon  left>mdi-file-excel-box</v-icon>
+                        </v-btn>
+                  
                 </v-card-title>
                 <v-card-text>
                   <div class="text--primary">

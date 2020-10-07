@@ -20,7 +20,7 @@
                 color="grey darken-2"
                 @click="setToday"
               >
-                Today
+                Hoy
               </v-btn>
               <v-btn fab text small color="grey darken-2" @click="prev">
                 <v-icon small> mdi-chevron-left </v-icon>
@@ -46,16 +46,16 @@
                 </template>
                 <v-list>
                   <v-list-item @click="type = 'day'">
-                    <v-list-item-title>Day</v-list-item-title>
+                    <v-list-item-title>Día</v-list-item-title>
                   </v-list-item>
                   <v-list-item @click="type = 'week'">
-                    <v-list-item-title>Week</v-list-item-title>
+                    <v-list-item-title>Semana</v-list-item-title>
                   </v-list-item>
                   <v-list-item @click="type = 'month'">
-                    <v-list-item-title>Month</v-list-item-title>
+                    <v-list-item-title>Mes</v-list-item-title>
                   </v-list-item>
                   <v-list-item @click="type = '4day'">
-                    <v-list-item-title>4 days</v-list-item-title>
+                    <v-list-item-title>4 días</v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>
@@ -81,11 +81,12 @@
             >
               <v-card class="" elevation="">
                 <v-card-title primary-title class="cyan justify-center">
-                  <span class="headline text-center white--text" dark>Nuevo Evento</span>
-                   <v-btn @click="cancelar()" text rounded color="red" dark>
-                          <v-icon  left>mdi-file-excel-box</v-icon>
-                        </v-btn>
-                  
+                  <span class="headline text-center white--text" dark
+                    >Nuevo Evento</span
+                  >
+                  <v-btn @click="cancelar()" text rounded color="red" dark>
+                    <v-icon left>mdi-file-excel-box</v-icon>
+                  </v-btn>
                 </v-card-title>
                 <v-card-text>
                   <div class="text--primary">
@@ -216,7 +217,7 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
-            
+
             <v-overlay :absolute="true" :value="overlay" color="black">
               <v-card>
                 <v-card-title primary-title class="grey darken-3">
@@ -239,24 +240,26 @@
               <v-card>
                 <v-card-title primary-title class="black">
                   <div class="text-center">
-                    <br>
-                    <span overline >  <v-icon color="white">mdi-check</v-icon>
-                     Se agrego corrrectamente</span>
+                    <br />
+                    <span overline>
+                      <v-icon color="white">mdi-check</v-icon> Se agrego
+                      corrrectamente</span
+                    >
                   </div>
                 </v-card-title>
                 <v-card-text>
                   <div class="text-center mt-5">
                     <v-btn
-        class="black--text"
-        color="light-green accent-3"
-        @click="overlay2 = false"
-        text
-        rounded
-      >
-        Continuar
-      </v-btn>
+                      class="black--text"
+                      color="light-green accent-3"
+                      @click="overlay2 = false"
+                      text
+                      rounded
+                    >
+                      Continuar
+                    </v-btn>
                   </div>
-                </v-card-text>                
+                </v-card-text>
               </v-card>
             </v-overlay>
             <v-menu
@@ -267,27 +270,65 @@
             >
               <v-card color="grey lighten-4" min-width="350px" flat>
                 <v-toolbar :color="selectedEvent.color" dark>
-                  <v-btn icon>
-                    <v-icon>mdi-pencil</v-icon>
+                  <v-btn icon @click="deleteEvent(selectedEvent)">
+                    <v-icon>mdi-delete</v-icon>
                   </v-btn>
                   <v-toolbar-title
                     v-html="selectedEvent.name"
                   ></v-toolbar-title>
                   <v-spacer></v-spacer>
-                  <v-btn icon>
-                    <v-icon>mdi-heart</v-icon>
+                  <v-btn icon @click="evento_id = selectedEvent.id" v-if="selectedEvent.id !== evento_id">
+                    <v-icon>mdi-pencil</v-icon>
                   </v-btn>
                   <v-btn icon>
                     <v-icon>mdi-dots-vertical</v-icon>
                   </v-btn>
                 </v-toolbar>
                 <v-card-text>
-                  <span v-html="selectedEvent.details"></span>
+                  <span
+                    v-html="selectedEvent.details"
+                    v-if="selectedEvent.id !== evento_id"
+                  ></span>
+                  <v-form v-else>
+                    <v-text-field
+                      type="text"
+                      v-model="selectedEvent.name"
+                      outlined
+                      :color="selectedEvent.color"
+                    ></v-text-field>
+                    <textarea-autosize
+                      v-model="selectedEvent.details"
+                      type="text"
+                      style="width: 100%"
+                      :color="selectedEvent.color"
+                    >
+                    </textarea-autosize>
+                  </v-form>
                 </v-card-text>
                 <v-card-actions>
-                  <v-btn text color="secondary" @click="selectedOpen = false">
+                  <v-btn text color="secondary" @click="selectedOpen = false" v-if="selectedEvent.id !== evento_id">
                     Cancel
                   </v-btn>
+                  <v-container class="" v-else>
+                    <v-layout row wrap>
+                      <v-flex xs6 >
+                        <div class="text-center">
+                          <v-btn icon @click="updateEvent(selectedEvent)" color="success" outlined  rounded>
+                            
+                          <v-icon >mdi-checkbox-marked-outline</v-icon>
+                        </v-btn>
+                        </div>
+                      </v-flex>
+                      <v-flex xs6 >
+                        <div class="text-center">
+                          <v-btn  icon @click="evento_id = null"  color="red" outlined  rounded>                            
+                          <v-icon >mdi-close-outline</v-icon>
+                        </v-btn>
+                        </div>
+                        
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
                 </v-card-actions>
               </v-card>
             </v-menu>
@@ -305,7 +346,7 @@ export default {
     focus: "",
     type: "month",
     typeToLabel: {
-      month: "Month",
+      month: "Mes",
       week: "Week",
       day: "Day",
       "4day": "4 Days",
@@ -342,13 +383,35 @@ export default {
     color_s: "#ffffff",
     nameRules: [(v) => !!v || "Es requerido"],
     overlay: false,
-    overlay2:false
+    overlay2: false,
+    evento_id: null,
   }),
   mounted() {
     this.$refs.calendar.checkChange();
     this.getEvent();
   },
   methods: {
+    async updateEvent(ev){
+      try {
+        await db.collection('eventos').doc(ev.id).update({
+          name: ev.name,
+          details:ev.details
+        })
+        this.selectedOpen = false
+        this.evento_id = null
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteEvent(eve) {
+      try {
+        await db.collection("eventos").doc(eve.id).delete();
+        this.selectedOpen = false;
+        this.getEvent();
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async setEvent() {
       try {
         if (
@@ -358,7 +421,6 @@ export default {
           this.verificarFechaMayor &&
           this.verificarColor
         ) {
-          console.log("Entro");
           await db.collection("eventos").add({
             name: this.nombre,
             details: this.detalle,
@@ -366,10 +428,9 @@ export default {
             end: this.F_fin,
             color: this.color_s,
           });
-          this.cancelar()
+          this.cancelar();
           this.getEvent();
-          this.overlay2 = true
-          
+          this.overlay2 = true;
         }
       } catch (error) {
         console.log("EROROROROROROR");
@@ -378,31 +439,30 @@ export default {
     },
     async getEvent() {
       try {
-        this.overlay=true
+        this.overlay = true;
         const snapshot = await db.collection("eventos").get();
         const events = [];
         snapshot.forEach((doc) => {
           let eventData = doc.data();
           eventData.id = doc.id;
-          events.push(eventData);          
-        });        
+          events.push(eventData);
+        });
         this.events = events;
-        this.overlay=false
-        
+        this.overlay = false;
       } catch (error) {
         console.log("EROROROROROROR");
         console.log(error);
       }
     },
-    cancelar(){
-      this.nombre= null,
-    this.detalle= null,
-    this.color= "#1976D2",
-    this.dialog= false,
-    this.F_inicio= null,
-    this.F_fin= null,
-    this.color_s= "#ffffff",
-    this.dialog = false
+    cancelar() {
+      (this.nombre = null),
+        (this.detalle = null),
+        (this.color = "#1976D2"),
+        (this.dialog = false),
+        (this.F_inicio = null),
+        (this.F_fin = null),
+        (this.color_s = "#ffffff"),
+        (this.dialog = false);
     },
     viewDay({ date }) {
       this.focus = date;

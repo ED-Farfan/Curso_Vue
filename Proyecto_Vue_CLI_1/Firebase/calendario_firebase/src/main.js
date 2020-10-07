@@ -7,7 +7,7 @@ import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 
 import VueTextareaAutosize from 'vue-textarea-autosize'
-
+Vue.use(VueTextareaAutosize)
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 

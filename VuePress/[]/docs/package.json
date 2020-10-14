@@ -1,0 +1,19 @@
+{
+  "name": "Nuevo",
+  "version": "0.0.1",
+  "description": "Pruebas con VuePress",
+  "main": "index.js",
+  "authors": {
+    "name": "David",
+    "email": "xxxxx@cxxx.xx"
+  },
+  "repository": "ssss/Nuevo",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}

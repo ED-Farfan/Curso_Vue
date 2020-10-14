@@ -7,16 +7,14 @@
           tip: 'Guardar Task',
           icon: 'save',
           label: 'Guardar',
-          handler: saveWork
-        }
+          handler: saveWork,
+        },
       }"
       :toolbar="[
         ['bold', 'italic', 'strike', 'underline'],
-        ['upload', 'save']
+        ['upload', 'save'],
       ]"
     />
-
-    
 
     <q-card flat bordered v-for="(tarea, index) in tareas" :key="index">
       <q-card-section v-html="tarea.texto" />
@@ -26,27 +24,34 @@
 
 <script>
 export default {
-  name: 'PageIndex',
+  name: "PageIndex",
   data() {
     return {
-      editor: '',
-      tareas:[]
-    }
+      editor: "",
+      tareas: [],
+    };
   },
   methods: {
-    saveWork () {
-      this.tareas.push({
-        texto: this.editor,
-        estado: false
-      })
-      this.$q.notify({
-        message: 'Se guardo el task',
-        color: 'green-4',
-        textColor: 'white',
-        icon: 'cloud_done'
-      })
-      this.editor = ''
-    }
+    saveWork() {
+      if (this.editor != "") {
+        this.tareas.push({
+          texto: this.editor,
+          estado: false,
+        });
+        this.$q.notify({
+          message: "Se guardo el task",
+          color: "green-4",
+          textColor: "white",
+          icon: "cloud_done",
+        });
+        this.editor = "";
+      } else {
+        this.$q.dialog({          
+          title: "¡Campo Vacío!",
+          message: "No se puede guardar tarea vacia",          
+        });
+      }
+    },
   },
-}
+};
 </script>

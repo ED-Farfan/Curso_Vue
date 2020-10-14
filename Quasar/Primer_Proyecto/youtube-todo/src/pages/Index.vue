@@ -1,11 +1,22 @@
 <template>
-  <q-page class="q-pa-md">
-    <h3>Titulo</h3>
-  </q-page>
+  <div class="q-pa-md q-gutter-sm">
+    <q-editor v-model="editor" min-height="5rem" />
+
+    
+
+    <q-card flat bordered>
+      <q-card-section v-html="editor" />
+    </q-card>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'PageIndex'
+  name: 'PageIndex',
+  data() {
+    return {
+      editor: '',
+    }
+  },
 }
 </script>

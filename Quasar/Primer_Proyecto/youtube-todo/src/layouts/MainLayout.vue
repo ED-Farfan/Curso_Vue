@@ -41,6 +41,14 @@
           <q-item-label>Home</q-item-label>          
         </q-item-section>        
       </q-item>
+      <q-item clickable to='*'>
+        <q-item-section avatar>
+          <q-avatar color="primary" text-color="white" icon="error" />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>Error</q-item-label>          
+        </q-item-section>        
+      </q-item>
     </q-drawer>    
     <q-page-container>
       <router-view />

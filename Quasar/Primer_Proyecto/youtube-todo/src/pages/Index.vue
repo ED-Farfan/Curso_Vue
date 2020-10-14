@@ -22,6 +22,9 @@
       <q-btn color="green" icon="check" flat label="Completar" @click="tarea.estado=!tarea.estado" />
       <q-btn color="red" icon="delete_forever" flat label="Eliminar" @click="eliminar(index)" />
     </q-card>
+    <div class="flex flex-center" v-if="tareas.length == 0">
+      <h6>Sin Notas</h6>
+    </div>
   </div>
 </template>
 

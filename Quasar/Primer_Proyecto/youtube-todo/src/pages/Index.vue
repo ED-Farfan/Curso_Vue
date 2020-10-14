@@ -16,8 +16,11 @@
       ]"
     />
 
-    <q-card flat bordered v-for="(tarea, index) in tareas" :key="index">
-      <q-card-section v-html="tarea.texto" />
+    <q-card class="row"
+    flat bordered v-for="(tarea, index) in tareas" :key="index">
+      <q-card-section class="col" v-html="tarea.texto"   />
+      <q-btn color="green" icon="check" flat label="Completar" @click="saveWork()" />
+      <q-btn color="red" icon="delete_forever" flat label="Eliminar" @click="saveWork()" />
     </q-card>
   </div>
 </template>

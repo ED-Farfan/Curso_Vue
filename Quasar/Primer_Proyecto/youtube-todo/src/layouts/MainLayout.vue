@@ -33,8 +33,15 @@
           Menu De Navegacion
         </q-item-label>        
       </q-list>
-    </q-drawer>
-
+      <q-item clickable to='/'>
+        <q-item-section avatar>
+          <q-avatar color="primary" text-color="white" icon="home" />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>Home</q-item-label>          
+        </q-item-section>        
+      </q-item>
+    </q-drawer>    
     <q-page-container>
       <router-view />
     </q-page-container>

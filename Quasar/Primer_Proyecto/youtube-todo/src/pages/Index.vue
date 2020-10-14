@@ -18,8 +18,8 @@
 
     <q-card class="row"
     flat bordered v-for="(tarea, index) in tareas" :key="index">
-      <q-card-section class="col" v-html="tarea.texto"   />
-      <q-btn color="green" icon="check" flat label="Completar" @click="saveWork()" />
+      <q-card-section class="col" v-html="tarea.texto"  :class="tarea.estado ? 'tachar':''" />
+      <q-btn color="green" icon="check" flat label="Completar" @click="tarea.estado=!tarea.estado" />
       <q-btn color="red" icon="delete_forever" flat label="Eliminar" @click="saveWork()" />
     </q-card>
   </div>
@@ -58,3 +58,8 @@ export default {
   },
 };
 </script>
+<style >
+  .tachar{
+    text-decoration: line-through ;
+  }
+</style>

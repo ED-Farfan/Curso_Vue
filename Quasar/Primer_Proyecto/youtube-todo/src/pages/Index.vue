@@ -20,7 +20,7 @@
     flat bordered v-for="(tarea, index) in tareas" :key="index">
       <q-card-section class="col" v-html="tarea.texto"  :class="tarea.estado ? 'tachar':''" />
       <q-btn color="green" icon="check" flat label="Completar" @click="tarea.estado=!tarea.estado" />
-      <q-btn color="red" icon="delete_forever" flat label="Eliminar" @click="saveWork()" />
+      <q-btn color="red" icon="delete_forever" flat label="Eliminar" @click="eliminar(index)" />
     </q-card>
   </div>
 </template>
@@ -55,6 +55,17 @@ export default {
         });
       }
     },
+    eliminar(index){
+       this.$q.dialog({
+        title: '¡Eliminar!',
+        message: '¿Seguro que desea eliminar esta tarea?',
+        cancel: true,
+        persistent: true
+      }).onOk(() => {
+        this.tareas.splice(index,1)
+      })
+      
+    }
   },
 };
 </script>

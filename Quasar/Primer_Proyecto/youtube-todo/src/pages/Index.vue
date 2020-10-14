@@ -4,9 +4,9 @@
       v-model="editor"
       :definitions="{
         save: {
-          tip: 'Save your work',
+          tip: 'Guardar Task',
           icon: 'save',
-          label: 'Save',
+          label: 'Guardar',
           handler: saveWork
         }
       }"
@@ -18,8 +18,8 @@
 
     
 
-    <q-card flat bordered>
-      <q-card-section v-html="editor" />
+    <q-card flat bordered v-for="(tarea, index) in tareas" :key="index">
+      <q-card-section v-html="tarea.texto" />
     </q-card>
   </div>
 </template>
@@ -30,16 +30,22 @@ export default {
   data() {
     return {
       editor: '',
+      tareas:[]
     }
   },
   methods: {
     saveWork () {
+      this.tareas.push({
+        texto: this.editor,
+        estado: false
+      })
       this.$q.notify({
-        message: 'Saved your text to local storage',
+        message: 'Se guardo el task',
         color: 'green-4',
         textColor: 'white',
         icon: 'cloud_done'
       })
+      this.editor = ''
     }
   },
 }

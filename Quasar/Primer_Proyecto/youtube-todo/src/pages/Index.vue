@@ -1,6 +1,6 @@
 <template>
-  <q-page >
-    
+  <q-page class="q-pa-md">
+    <h3>Titulo</h3>
   </q-page>
 </template>
 

@@ -12,10 +12,10 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Todo Windows
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>Farfi</div>
       </q-toolbar>
     </q-header>
 
@@ -30,13 +30,8 @@
           header
           class="text-grey-8"
         >
-          Essential Links
-        </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+          Menu De Navegacion
+        </q-item-label>        
       </q-list>
     </q-drawer>
 

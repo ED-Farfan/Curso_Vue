@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md q-gutter-sm">
-    <q-editor
+    <q-editor v-if="!ModoEditor"
       v-model="editor"
       :definitions="{
         save: {
@@ -9,6 +9,27 @@
           label: 'Guardar',
           handler: saveWork,
         },
+      }"
+      :toolbar="[
+        ['bold', 'italic', 'strike', 'underline'],
+        ['upload', 'save'],
+      ]"
+    />
+    <q-editor v-else
+      v-model="editor"
+      :definitions="{
+        save: {
+          tip: 'Actualizar elemento',
+          icon: 'cached',
+          label: 'Actualizar',
+          handler: Actualizar,
+        },
+        upload: {
+          tip: 'Cancelar Actualizacion',
+          icon: 'highlight_off',
+          label: 'Cancelar',
+          handler: cancelar_Modificacion
+        }
       }"
       :toolbar="[
         ['bold', 'italic', 'strike', 'underline'],
@@ -41,11 +62,21 @@
         flat
         label="Eliminar"
         @click="eliminar(index,tarea.id)"
+        
+      />
+      <q-btn
+        color="blue"
+        icon="library_books"
+        flat
+        label="Modificar"
+        @click="modificar(index,tarea.id)"
+        
       />
     </q-card>
     <div class="flex flex-center" v-if="tareas.length == 0">
       <h6>Sin Notas</h6>
-    </div>
+    </div>    
+    
   </div>
 </template>
 
@@ -57,6 +88,9 @@ export default {
     return {
       editor: "",
       tareas: [],
+      ModoEditor: false,
+      id: null,
+      index:null,
     };
   },
   created() {
@@ -65,6 +99,7 @@ export default {
   methods: {
     async listarTareas() {
       try {
+        this.tareas=[]
         const resDB = await db.collection("tareas").get();
         if (resDB.length != 0) {
           resDB.forEach((res) => {
@@ -85,12 +120,8 @@ export default {
         if (this.editor != "") {
           const resDB = await db.collection('tareas').add({
             texto: this.editor,
-            estado: false
-          })
-        this.tareas.push({
-          texto: this.editor,
-          estado: false,
-        });
+            estado: false            
+          })        
         this.$q.notify({
           message: "Se guardo el task",
           color: "green-4",
@@ -98,6 +129,7 @@ export default {
           icon: "cloud_done",
         });
         this.editor = "";
+        this.listarTareas()
       } else {
         this.$q.dialog({
           title: "¡Campo Vacío!",
@@ -130,6 +162,36 @@ export default {
           this.tareas.splice(index, 1);
         });
     },
+    modificar(index,id){
+      this.index = index
+      this.id = id
+      this.ModoEditor = true
+      this.editor = this.tareas[index].texto
+    },
+    cancelar_Modificacion(){
+      this.editor = "";
+      this.index = null
+      this.id = null
+      this.ModoEditor = false      
+    },
+    async Actualizar(){
+      try {
+        const resDB = await db.collection('tareas').doc(this.id).update({
+          texto: this.editor
+        })
+        this.tareas[this.index].texto = this.editor
+        this.$q.notify({
+          message: "Se Actualizo Correctamente La Tarea",
+          color: "green-4",
+          textColor: "white",
+          icon: "cloud_done",
+        });
+      } catch (error) {
+        console.log(error);
+      }finally{
+        this.cancelar_Modificacion()
+      }
+    }
   },
 };
 </script>

@@ -20,6 +20,7 @@ module.exports = function (/* ctx */) {
     boot: [
       
       'axios',
+      'firebase'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -163,8 +164,8 @@ module.exports = function (/* ctx */) {
     electron: {
       bundler: 'packager', // 'packager' or 'builder'
 
-      packager: {
-        plataform: 'win32'
+      packager: {        
+        platform: 'win32'
         // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
 
         // OS X / Mac App Store

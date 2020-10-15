@@ -16,11 +16,32 @@
       ]"
     />
 
-    <q-card class="row"
-    flat bordered v-for="(tarea, index) in tareas" :key="index">
-      <q-card-section class="col" v-html="tarea.texto"  :class="tarea.estado ? 'tachar':''" />
-      <q-btn color="green" icon="check" flat label="Completar" @click="tarea.estado=!tarea.estado" />
-      <q-btn color="red" icon="delete_forever" flat label="Eliminar" @click="eliminar(index)" />
+    <q-card
+      class="row"
+      flat
+      bordered
+      v-for="(tarea, index) in tareas"
+      :key="index"
+    >
+      <q-card-section
+        class="col"
+        v-html="tarea.texto"
+        :class="tarea.estado ? 'tachar' : ''"
+      />
+      <q-btn
+        color="green"
+        icon="check"
+        flat
+        label="Completar"
+        @click="tarea.estado = !tarea.estado"
+      />
+      <q-btn
+        color="red"
+        icon="delete_forever"
+        flat
+        label="Eliminar"
+        @click="eliminar(index)"
+      />
     </q-card>
     <div class="flex flex-center" v-if="tareas.length == 0">
       <h6>Sin Notas</h6>
@@ -29,6 +50,7 @@
 </template>
 
 <script>
+import { db } from "boot/firebase";
 export default {
   name: "PageIndex",
   data() {
@@ -37,9 +59,34 @@ export default {
       tareas: [],
     };
   },
+  created() {
+    this.listarTareas();
+  },
   methods: {
-    saveWork() {
-      if (this.editor != "") {
+    async listarTareas() {
+      try {
+        const resDB = await db.collection("tareas").get();
+        if (resDB.length != 0) {
+          resDB.forEach((res) => {
+            console.log(res.data());
+            this.tareas.push({
+              id: res.id,
+              texto: res.data().texto,
+              estado: res.data().estado,
+            })
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async saveWork() {
+      try {
+        if (this.editor != "") {
+          const resDB = await db.collection('tareas').add({
+            texto: this.editor,
+            estado: false
+          })
         this.tareas.push({
           texto: this.editor,
           estado: false,
@@ -52,28 +99,33 @@ export default {
         });
         this.editor = "";
       } else {
-        this.$q.dialog({          
+        this.$q.dialog({
           title: "¡Campo Vacío!",
-          message: "No se puede guardar tarea vacia",          
+          message: "No se puede guardar tarea vacia",
         });
       }
-    },
-    eliminar(index){
-       this.$q.dialog({
-        title: '¡Eliminar!',
-        message: '¿Seguro que desea eliminar esta tarea?',
-        cancel: true,
-        persistent: true
-      }).onOk(() => {
-        this.tareas.splice(index,1)
-      })
+      } catch (error) {
+        console.log(error);
+      }
       
-    }
+    },
+    eliminar(index) {
+      this.$q
+        .dialog({
+          title: "¡Eliminar!",
+          message: "¿Seguro que desea eliminar esta tarea?",
+          cancel: true,
+          persistent: true,
+        })
+        .onOk(() => {
+          this.tareas.splice(index, 1);
+        });
+    },
   },
 };
 </script>
 <style >
-  .tachar{
-    text-decoration: line-through ;
-  }
+.tachar {
+  text-decoration: line-through;
+}
 </style>

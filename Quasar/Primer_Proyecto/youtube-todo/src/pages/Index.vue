@@ -40,7 +40,7 @@
         icon="delete_forever"
         flat
         label="Eliminar"
-        @click="eliminar(index)"
+        @click="eliminar(index,tarea.id)"
       />
     </q-card>
     <div class="flex flex-center" v-if="tareas.length == 0">
@@ -109,7 +109,15 @@ export default {
       }
       
     },
-    eliminar(index) {
+    async eliminarBD(id){
+      try {
+        await db.collection('tareas').doc(id).delete()
+        
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    eliminar(index , id) {
       this.$q
         .dialog({
           title: "¡Eliminar!",
@@ -118,6 +126,7 @@ export default {
           persistent: true,
         })
         .onOk(() => {
+          this.eliminarBD(id)
           this.tareas.splice(index, 1);
         });
     },
